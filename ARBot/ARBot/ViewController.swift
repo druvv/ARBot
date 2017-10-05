@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class ViewController: UIViewController {
+    var serial: BluetoothSerial!
+    @IBOutlet var bluetoothStatusLabel: UILabel!
+    @IBOutlet var motorSpeedLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+        serial = BluetoothSerial(delegate: self)
+        if serial.centralManager.state != .poweredOn {
+            print("Bluetooth Not Enabled!!!!");
+        }
+        serial.startScan()
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,13 +31,26 @@ class ViewController: UIViewController {
 
 extension ViewController: BluetoothSerialDelegate {
     func serialDidChangeState() {
-        <#code#>
+        switch serial.centralManager.state {
+        case .poweredOff:
+            bluetoothStatusLabel.text = "Bluetooth Off"
+            bluetoothStatusLabel.textColor = UIColor.red
+        case .poweredOn
+            bluetoothStatusLabel.text = "Bluetooth On"
+            bluetoothStatusLabel.textColor = UIColor.green
+        default:
+            bluetoothStatusLabel.text = "Unknown"
+            bluetoothStatusLabel.textColor = UIColor.orange
+        }
     }
     
     func serialDidDisconnect(_ peripheral: CBPeripheral, error: NSError?) {
-        <#code#>
+        
     }
     
+    func serialDidDiscoverPeripheral(_ peripheral: CBPeripheral, RSSI: NSNumber?) {
+        print(peripheral)
+    }
     
 }
 
