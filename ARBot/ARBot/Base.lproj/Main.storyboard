@@ -18,55 +18,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bluetooth Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-FW-VT4">
-                                <rect key="frame" x="120" y="20" width="134" height="21"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <rect key="frame" x="115.5" y="36" width="144.5" height="24"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7l-WH-6kI">
-                                <rect key="frame" x="141.5" y="49" width="91" height="21"/>
+                                <rect key="frame" x="141.5" y="68" width="91" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter string to send to bot" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nbX-B4-gvp">
-                                <rect key="frame" x="16" y="144" width="343" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4x-bs-agv">
-                                <rect key="frame" x="169" y="182" width="36" height="30"/>
-                                <state key="normal" title="Send"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Motor Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vji-4V-wYY">
-                                <rect key="frame" x="136" y="78" width="103" height="21"/>
+                                <rect key="frame" x="136" y="121" width="103" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ia-Ub-sQ5">
-                                <rect key="frame" x="182.5" y="107" width="10.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="94" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ia-Ub-sQ5">
+                                <rect key="frame" x="177.5" y="150" width="21" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="95" minValue="0.0" maxValue="180" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUz-g0-221">
+                                <rect key="frame" x="6" y="179" width="363" height="31"/>
+                                <color key="tintColor" red="0.58188301320000002" green="0.21569153669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="sliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="69f-xx-Ukn"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y78-Pf-OaQ">
+                                <rect key="frame" x="169" y="241" width="38" height="30"/>
+                                <state key="normal" title="Move"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="F7l-WH-6kI" firstAttribute="top" secondItem="2WS-FW-VT4" secondAttribute="bottom" constant="8" id="0ta-07-uQK"/>
-                            <constraint firstItem="nbX-B4-gvp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="B1X-I4-ALg"/>
+                            <constraint firstItem="IUz-g0-221" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="HUQ-Gx-ZwS"/>
+                            <constraint firstItem="y78-Pf-OaQ" firstAttribute="top" secondItem="IUz-g0-221" secondAttribute="bottom" constant="32" id="OxM-R7-Bmg"/>
                             <constraint firstItem="2Ia-Ub-sQ5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RKx-nf-uJI"/>
-                            <constraint firstItem="L4x-bs-agv" firstAttribute="top" secondItem="nbX-B4-gvp" secondAttribute="bottom" constant="8" id="TqW-2j-og8"/>
                             <constraint firstItem="Vji-4V-wYY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WQh-lC-IWd"/>
                             <constraint firstItem="F7l-WH-6kI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cVN-KT-ba2"/>
                             <constraint firstItem="2Ia-Ub-sQ5" firstAttribute="top" secondItem="Vji-4V-wYY" secondAttribute="bottom" constant="8" id="f1H-mp-Lp5"/>
-                            <constraint firstItem="L4x-bs-agv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="g3x-qY-jvX"/>
                             <constraint firstItem="2WS-FW-VT4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ivA-Ga-FfB"/>
-                            <constraint firstItem="Vji-4V-wYY" firstAttribute="top" secondItem="F7l-WH-6kI" secondAttribute="bottom" constant="8" id="mgL-Wl-qPe"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nbX-B4-gvp" secondAttribute="trailing" constant="16" id="oVl-sS-c9K"/>
-                            <constraint firstItem="nbX-B4-gvp" firstAttribute="top" secondItem="2Ia-Ub-sQ5" secondAttribute="bottom" constant="16" id="p6Y-Am-mzK"/>
-                            <constraint firstItem="2WS-FW-VT4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yVn-rI-ubz"/>
+                            <constraint firstItem="Vji-4V-wYY" firstAttribute="top" secondItem="F7l-WH-6kI" secondAttribute="bottom" constant="32" id="mgL-Wl-qPe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IUz-g0-221" secondAttribute="trailing" constant="8" id="oQJ-XL-T1U"/>
+                            <constraint firstItem="IUz-g0-221" firstAttribute="top" secondItem="2Ia-Ub-sQ5" secondAttribute="bottom" constant="8" id="tF5-Sd-Vye"/>
+                            <constraint firstItem="2WS-FW-VT4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="yVn-rI-ubz"/>
+                            <constraint firstItem="y78-Pf-OaQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yZ8-jS-x0y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -17,9 +17,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         serial = BluetoothSerial(delegate: self)
-        if serial.centralManager.state != .poweredOn {
-            print("Bluetooth Not Enabled!!!!");
-        }
         serial.startScan()
     }
 
@@ -27,6 +24,16 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func sliderChanged(_ sender: UISlider) {
+        changeMotorSpeed(speed: Int(sender.value))
+    }
+    
+    func changeMotorSpeed(speed: Int) {
+        serial.sendMessageToDevice("setSpeed:\(speed)\n")
+        motorSpeedLabel.text = "\(speed)"
+    }
+    
 }
 
 extension ViewController: BluetoothSerialDelegate {
@@ -35,9 +42,10 @@ extension ViewController: BluetoothSerialDelegate {
         case .poweredOff:
             bluetoothStatusLabel.text = "Bluetooth Off"
             bluetoothStatusLabel.textColor = UIColor.red
-        case .poweredOn
-            bluetoothStatusLabel.text = "Bluetooth On"
-            bluetoothStatusLabel.textColor = UIColor.green
+        case .poweredOn:
+            bluetoothStatusLabel.text = "Bluetooth Searching..."
+            bluetoothStatusLabel.textColor = UIColor.orange
+            serial.startScan()
         default:
             bluetoothStatusLabel.text = "Unknown"
             bluetoothStatusLabel.textColor = UIColor.orange
@@ -49,7 +57,11 @@ extension ViewController: BluetoothSerialDelegate {
     }
     
     func serialDidDiscoverPeripheral(_ peripheral: CBPeripheral, RSSI: NSNumber?) {
-        print(peripheral)
+        if peripheral.name == "MLT-BT05" {
+            serial.connectToPeripheral(peripheral)
+            bluetoothStatusLabel.text = "Connected"
+            bluetoothStatusLabel.textColor = UIColor.green
+        }
     }
     
 }
