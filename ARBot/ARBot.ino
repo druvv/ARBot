@@ -24,8 +24,8 @@ void setup() {
     pinMode(statePin,INPUT);
     
     servo.attach(5);
-    Serial.begin(9600);
-    bluetoothSerial.begin(9600);
+    Serial.begin(115200);
+    bluetoothSerial.begin(115200);
     while (!Serial) {}
     while (!bluetoothSerial) {}
 }

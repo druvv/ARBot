@@ -9,6 +9,10 @@
 import UIKit
 import CoreBluetooth
 
+protocol ARBotCommunicationDelegate {
+    func changeServoSpeed(speed: Int)
+}
+
 class ViewController: UIViewController {
     enum BluetoothStatus {
         case off
@@ -18,11 +22,19 @@ class ViewController: UIViewController {
         case unknown
     }
     
+    enum MoveTask {
+        case forward
+        case backward
+        case rotateLeft
+        case rotateRight
+    }
+    
     var serial: BluetoothSerial!
     @IBOutlet var bluetoothStatusLabel: UILabel!
     var bluetoothStatus: BluetoothStatus = .off
     @IBOutlet var motorSpeedLabel: UILabel!
-    let stopSpeed: Int = 94
+    @IBOutlet var speedSlider: UISlider!
+    let stopSpeed: Int = 6
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,17 +42,38 @@ class ViewController: UIViewController {
         serial.startScan()
     }
     
-    @IBAction func sliderChanged(_ sender: UISlider) {
-        changeServoSpeed(speed: Int(sender.value))
+    @IBAction func sliderChanged(_ sender: UISlider, forEvent event: UIEvent) {
+        motorSpeedLabel.text = "\(Int(sender.value))"
+        // If the user stopped moving the slider
+        if let touchEvent = event.allTouches?.first, case .ended = touchEvent.phase {
+            changeServoSpeed(speed: Int(sender.value))
+        }
     }
     
+    
+    @IBAction func segmentedChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            changeServoSpeed(speed: 90)
+        case 1:
+            changeServoSpeed(speed: stopSpeed)
+        case 2:
+            changeServoSpeed(speed: -90)
+        default:
+            changeServoSpeed(speed: stopSpeed)
+        }
+    }
+    
+    
     func changeServoSpeed(speed: Int) {
-        serial.sendMessageToDevice("setSpeed:\(speed)\n")
+        speedSlider.value = Float(speed)
         motorSpeedLabel.text = "\(speed)"
+        let s = speed + 90
+        serial.sendMessageToDevice("setSpeed:\(s)\n")
     }
     
     @IBAction func movePressedDown(_ sender: Any) {
-        changeServoSpeed(speed: 180)
+        changeServoSpeed(speed: 90)
     }
     
     @IBAction func moveUnpressed(_ sender: Any) {
@@ -88,10 +121,14 @@ extension ViewController: BluetoothSerialDelegate {
     }
     
     func serialDidDiscoverPeripheral(_ peripheral: CBPeripheral, RSSI: NSNumber?) {
-        if peripheral.name == "MLT-BT05" {
+        if peripheral.name == "ARBOT" {
             serial.connectToPeripheral(peripheral)
             setBluetooth(status: .connected)
         }
+    }
+    
+    func queueWork(task: MoveTask) {
+        
     }
     
 }
