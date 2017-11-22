@@ -10,23 +10,18 @@ import UIKit
 import CoreBluetooth
 
 protocol ARBotCommunicationDelegate {
-    func changeServoSpeed(speed: Int)
+    func update(speedLeft: Int, speedRight: Int)
+    func stop(left: Bool, right: Bool)
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ARBotCommunicationDelegate {
+    
     enum BluetoothStatus {
         case off
         case searching
         case connected
         case stopped
         case unknown
-    }
-    
-    enum MoveTask {
-        case forward
-        case backward
-        case rotateLeft
-        case rotateRight
     }
     
     var serial: BluetoothSerial!
@@ -80,6 +75,10 @@ class ViewController: UIViewController {
         changeServoSpeed(speed: stopSpeed)
     }
     
+    @IBAction func openPressed() {
+        performSegue(withIdentifier: "openJoystick", sender: self)
+    }
+    
     
     func setBluetooth(status: BluetoothStatus) {
         switch status {
@@ -98,6 +97,46 @@ class ViewController: UIViewController {
         case .unknown:
             bluetoothStatusLabel.text = "Unknown"
             bluetoothStatusLabel.textColor = UIColor.red
+        }
+    }
+    
+    func stop(left: Bool, right: Bool) {
+        if left && right {
+            self.serial.sendMessageToDevice("0/0\n")
+            return
+        }
+        
+        if left {
+            self.serial.sendMessageToDevice("0/-256\n")
+        }
+        
+        if right {
+            self.serial.sendMessageToDevice("-256/0\n")
+        }
+    }
+    
+    func update(speedLeft: Int, speedRight: Int) {
+        // Debouncer
+        let dispatchDelay = DispatchTimeInterval.milliseconds(100)
+        let lastFireTime = DispatchTime.now()
+        let dispatchTime: DispatchTime = DispatchTime.now() + dispatchDelay
+        let queue = DispatchQueue.global(qos: .background)
+        
+        queue.asyncAfter(deadline: dispatchTime) {
+            let when: DispatchTime = lastFireTime + dispatchDelay
+            let now = DispatchTime.now()
+            // Send the value to arduino
+            if now.rawValue >= when.rawValue {
+                self.serial.sendMessageToDevice("\(speedLeft)/\(speedRight)\n")
+            }
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openJoystick" {
+            let vc = segue.destination as! JoystickViewController
+            vc.dataDelegate = self
         }
     }
     
@@ -126,10 +165,5 @@ extension ViewController: BluetoothSerialDelegate {
             setBluetooth(status: .connected)
         }
     }
-    
-    func queueWork(task: MoveTask) {
-        
-    }
-    
 }
 

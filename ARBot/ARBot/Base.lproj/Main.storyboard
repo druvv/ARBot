@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,7 +71,7 @@
                                 <rect key="frame" x="138" y="617" width="98" height="30"/>
                                 <state key="normal" title="Open Joystick"/>
                                 <connections>
-                                    <segue destination="MZf-db-qcn" kind="presentation" modalTransitionStyle="flipHorizontal" id="SlP-l1-cJU"/>
+                                    <action selector="openPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Sq3-oT-iRz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -102,6 +102,7 @@
                         <outlet property="bluetoothStatusLabel" destination="F7l-WH-6kI" id="vp0-Oz-Cb2"/>
                         <outlet property="motorSpeedLabel" destination="2Ia-Ub-sQ5" id="ng1-Lj-4U1"/>
                         <outlet property="speedSlider" destination="IUz-g0-221" id="bmt-k7-FkR"/>
+                        <segue destination="MZf-db-qcn" kind="presentation" identifier="openJoystick" modalTransitionStyle="flipHorizontal" id="M0C-sB-Gy9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -134,6 +135,7 @@
                             <constraint firstItem="aW9-g0-vpq" firstAttribute="top" secondItem="IMK-k9-B0e" secondAttribute="top" id="liH-nb-QM4"/>
                             <constraint firstItem="aW9-g0-vpq" firstAttribute="bottom" secondItem="xJN-FD-dLe" secondAttribute="bottom" id="nr2-XH-ocD"/>
                             <constraint firstItem="aW9-g0-vpq" firstAttribute="trailing" secondItem="xJN-FD-dLe" secondAttribute="trailing" id="qZA-sx-usT"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CRh-V1-48o" secondAttribute="trailing" constant="20" symbolic="YES" id="ttk-Em-VIW"/>
                             <constraint firstItem="CRh-V1-48o" firstAttribute="leading" secondItem="xJN-FD-dLe" secondAttribute="leading" constant="16" id="vgn-eI-A9k"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xJN-FD-dLe"/>

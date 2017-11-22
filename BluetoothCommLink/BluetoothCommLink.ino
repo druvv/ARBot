@@ -1,6 +1,6 @@
 
 #include <SoftwareSerial.h>
-SoftwareSerial bluetoothSerial = SoftwareSerial(7,8);
+SoftwareSerial bluetoothSerial = SoftwareSerial(13,12);
 
 
 void setup() {

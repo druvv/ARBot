@@ -11,13 +11,12 @@ import SpriteKit
 
 class JoystickViewController: UIViewController {
     @IBOutlet weak var skView: SKView!
+    var dataDelegate: ARBotCommunicationDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let scene = JoystickGameScene(size: view.bounds.size)
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.ignoresSiblingOrder = true
+        scene.dataDelegate = dataDelegate
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
     }
