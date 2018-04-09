@@ -16,7 +16,7 @@ var serial: BluetoothSerial!
 protocol BluetoothSerialDelegate {
     // ** Required **
     
-    /// Called when de state of the CBCentralManager changes (e.g. when bluetooth is turned on/off)
+    /// Called when the state of the CBCentralManager changes (e.g. when bluetooth is turned on/off)
     func serialDidChangeState()
     
     /// Called when a peripheral disconnected
