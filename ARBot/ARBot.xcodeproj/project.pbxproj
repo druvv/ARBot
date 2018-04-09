@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		FC50DFDD1F8FA26A00564871 /* JoystickGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC50DFDC1F8FA26A00564871 /* JoystickGameScene.swift */; };
 		FC50DFDF1F8FA2EA00564871 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC50DFDE1F8FA2EA00564871 /* AnalogJoystick.swift */; };
+		FC68A32A1FC5EFD8008DEB01 /* TimedLimter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC68A3291FC5EFD7008DEB01 /* TimedLimter.swift */; };
+		FC68A32C1FC5EFDD008DEB01 /* SyncLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC68A32B1FC5EFDD008DEB01 /* SyncLimiter.swift */; };
 		FC7CFCE61F7C2C5F007D0D13 /* BluetoothSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7CFCE51F7C2C5F007D0D13 /* BluetoothSerial.swift */; };
 		FCADF8941F9A47ED00763C26 /* JoystickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCADF8931F9A47ED00763C26 /* JoystickViewController.swift */; };
 		FCC5388B1F7C280F00B62FDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC5388A1F7C280F00B62FDF /* AppDelegate.swift */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		FC50DFDC1F8FA26A00564871 /* JoystickGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickGameScene.swift; sourceTree = "<group>"; };
 		FC50DFDE1F8FA2EA00564871 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
+		FC68A3291FC5EFD7008DEB01 /* TimedLimter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimedLimter.swift; sourceTree = "<group>"; };
+		FC68A32B1FC5EFDD008DEB01 /* SyncLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncLimiter.swift; sourceTree = "<group>"; };
 		FC7CFCE51F7C2C5F007D0D13 /* BluetoothSerial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSerial.swift; sourceTree = "<group>"; };
 		FCADF8931F9A47ED00763C26 /* JoystickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickViewController.swift; sourceTree = "<group>"; };
 		FCC538871F7C280F00B62FDF /* ARBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +66,8 @@
 		FCC538891F7C280F00B62FDF /* ARBot */ = {
 			isa = PBXGroup;
 			children = (
+				FC68A32B1FC5EFDD008DEB01 /* SyncLimiter.swift */,
+				FC68A3291FC5EFD7008DEB01 /* TimedLimter.swift */,
 				FC7CFCE51F7C2C5F007D0D13 /* BluetoothSerial.swift */,
 				FC50DFDC1F8FA26A00564871 /* JoystickGameScene.swift */,
 				FC50DFDE1F8FA2EA00564871 /* AnalogJoystick.swift */,
@@ -152,8 +158,10 @@
 				FC50DFDF1F8FA2EA00564871 /* AnalogJoystick.swift in Sources */,
 				FCC5388B1F7C280F00B62FDF /* AppDelegate.swift in Sources */,
 				FC50DFDD1F8FA26A00564871 /* JoystickGameScene.swift in Sources */,
+				FC68A32A1FC5EFD8008DEB01 /* TimedLimter.swift in Sources */,
 				FCADF8941F9A47ED00763C26 /* JoystickViewController.swift in Sources */,
 				FC7CFCE61F7C2C5F007D0D13 /* BluetoothSerial.swift in Sources */,
+				FC68A32C1FC5EFDD008DEB01 /* SyncLimiter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

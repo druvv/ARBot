@@ -14,7 +14,7 @@ protocol ARBotCommunicationDelegate {
     func stop(left: Bool, right: Bool)
 }
 
-class ViewController: UIViewController, ARBotCommunicationDelegate {
+class ViewController: UIViewController {
     
     enum BluetoothStatus {
         case off
@@ -27,52 +27,12 @@ class ViewController: UIViewController, ARBotCommunicationDelegate {
     var serial: BluetoothSerial!
     @IBOutlet var bluetoothStatusLabel: UILabel!
     var bluetoothStatus: BluetoothStatus = .off
-    @IBOutlet var motorSpeedLabel: UILabel!
-    @IBOutlet var speedSlider: UISlider!
-    let stopSpeed: Int = 6
+    let limiter = TimedLimiter(limit: 0.1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         serial = BluetoothSerial(delegate: self)
         serial.startScan()
-    }
-    
-    @IBAction func sliderChanged(_ sender: UISlider, forEvent event: UIEvent) {
-        motorSpeedLabel.text = "\(Int(sender.value))"
-        // If the user stopped moving the slider
-        if let touchEvent = event.allTouches?.first, case .ended = touchEvent.phase {
-            changeServoSpeed(speed: Int(sender.value))
-        }
-    }
-    
-    
-    @IBAction func segmentedChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            changeServoSpeed(speed: 90)
-        case 1:
-            changeServoSpeed(speed: stopSpeed)
-        case 2:
-            changeServoSpeed(speed: -90)
-        default:
-            changeServoSpeed(speed: stopSpeed)
-        }
-    }
-    
-    
-    func changeServoSpeed(speed: Int) {
-        speedSlider.value = Float(speed)
-        motorSpeedLabel.text = "\(speed)"
-        let s = speed + 90
-        serial.sendMessageToDevice("setSpeed:\(s)\n")
-    }
-    
-    @IBAction func movePressedDown(_ sender: Any) {
-        changeServoSpeed(speed: 90)
-    }
-    
-    @IBAction func moveUnpressed(_ sender: Any) {
-        changeServoSpeed(speed: stopSpeed)
     }
     
     @IBAction func openPressed() {
@@ -100,6 +60,16 @@ class ViewController: UIViewController, ARBotCommunicationDelegate {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openJoystick" {
+            let vc = segue.destination as! JoystickViewController
+            vc.dataDelegate = self
+        }
+    }
+    
+}
+
+extension ViewController: ARBotCommunicationDelegate {
     func stop(left: Bool, right: Bool) {
         if left && right {
             self.serial.sendMessageToDevice("0/0\n")
@@ -107,17 +77,23 @@ class ViewController: UIViewController, ARBotCommunicationDelegate {
         }
         
         if left {
-            self.serial.sendMessageToDevice("0/-256\n")
+            self.serial.sendMessageToDevice("0/\(NO_CHANGE)\n")
         }
         
         if right {
-            self.serial.sendMessageToDevice("-256/0\n")
+            self.serial.sendMessageToDevice("\(NO_CHANGE)/0\n")
         }
     }
     
     func update(speedLeft: Int, speedRight: Int) {
+        limiter.execute {
+            print("Left: \(speedLeft)       Right: \(speedRight)")
+            self.serial.sendMessageToDevice("\(speedLeft)/\(speedRight)\n")
+        }
+        
+        /*
         // Debouncer
-        let dispatchDelay = DispatchTimeInterval.milliseconds(100)
+        let dispatchDelay = DispatchTimeInterval.milliseconds(500)
         let lastFireTime = DispatchTime.now()
         let dispatchTime: DispatchTime = DispatchTime.now() + dispatchDelay
         let queue = DispatchQueue.global(qos: .background)
@@ -127,19 +103,13 @@ class ViewController: UIViewController, ARBotCommunicationDelegate {
             let now = DispatchTime.now()
             // Send the value to arduino
             if now.rawValue >= when.rawValue {
+                print("Left: \(speedLeft)       Right: \(speedRight)")
                 self.serial.sendMessageToDevice("\(speedLeft)/\(speedRight)\n")
             }
         }
+        */
         
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "openJoystick" {
-            let vc = segue.destination as! JoystickViewController
-            vc.dataDelegate = self
-        }
-    }
-    
 }
 
 extension ViewController: BluetoothSerialDelegate {

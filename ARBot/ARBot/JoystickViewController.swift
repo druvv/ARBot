@@ -18,6 +18,7 @@ class JoystickViewController: UIViewController {
         let scene = JoystickGameScene(size: view.bounds.size)
         scene.dataDelegate = dataDelegate
         scene.scaleMode = .resizeFill
+        skView.isMultipleTouchEnabled = true
         skView.presentScene(scene)
     }
     
